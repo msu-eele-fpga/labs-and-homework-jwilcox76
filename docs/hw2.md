@@ -1,6 +1,5 @@
 # HW-2 submission markdown Report
-## Joshua Wilcox | 8/29/2024
-#### EELE 467
+## Joshua Wilcox | 8/29/2024 | EELE 467
 
 **Use of bold words**
 
