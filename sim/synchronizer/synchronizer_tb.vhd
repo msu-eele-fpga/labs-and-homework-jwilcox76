@@ -1,6 +1,7 @@
 library ieee;
 use ieee.std_logic_1164.all;
 
+
 entity synchronizer_tb is
 end entity synchronizer_tb;
 
