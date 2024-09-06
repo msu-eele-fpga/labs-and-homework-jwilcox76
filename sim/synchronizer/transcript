@@ -1,0 +1,59 @@
+# Compile of synchronizer_tb.vhd was successful.
+# Compile of synchronizer.vhd was successful.
+# 2 compiles, 0 failed with no errors.
+vsim work.synchronizer
+# vsim work.synchronizer 
+# Start time: 15:01:03 on Sep 06,2024
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading work.synchronizer(synchronizer_arch)
+quit -sim
+# End time: 15:01:16 on Sep 06,2024, Elapsed time: 0:00:13
+# Errors: 0, Warnings: 2
+vsim work.synchronizer_tb
+# vsim work.synchronizer_tb 
+# Start time: 15:01:17 on Sep 06,2024
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading std.env(body)
+# Loading work.synchronizer_tb(testbench)
+# Loading work.synchronizer(synchronizer_arch)
+vsim work.synchronizer
+# End time: 15:01:43 on Sep 06,2024, Elapsed time: 0:00:26
+# Errors: 0, Warnings: 1
+# vsim work.synchronizer 
+# Start time: 15:01:43 on Sep 06,2024
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading work.synchronizer(synchronizer_arch)
+quit -sim
+# End time: 15:01:55 on Sep 06,2024, Elapsed time: 0:00:12
+# Errors: 0, Warnings: 1
+vsim work.synchronizer
+# vsim work.synchronizer 
+# Start time: 15:01:57 on Sep 06,2024
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading work.synchronizer(synchronizer_arch)
+quit -sim
+# End time: 15:02:08 on Sep 06,2024, Elapsed time: 0:00:11
+# Errors: 0, Warnings: 1
+vsim work.synchronizer_tb
+# vsim work.synchronizer_tb 
+# Start time: 15:02:18 on Sep 06,2024
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading std.env(body)
+# Loading work.synchronizer_tb(testbench)
+# Loading work.synchronizer(synchronizer_arch)
+add wave -r /*
+run
+# ** Note: all tests passed!
+#    Time: 100 ns  Iteration: 0  Instance: /synchronizer_tb
+# 1
+# Break in Process check_output at C:/Users/jwilc/Documents/labs-and-homework-jwilcox76/sim/synchronizer/synchronizer_tb.vhd line 112
