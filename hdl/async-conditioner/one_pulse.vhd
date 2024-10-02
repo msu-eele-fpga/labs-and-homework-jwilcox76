@@ -31,8 +31,9 @@ architecture one_pulse_arch of one_pulse is
 	   end process state_memory;
 
 	   -- Combinational
-	   next_state_logic : process (current_state, input)
+	   next_state_logic : process (current_state, input, clk)
 		begin
+		 if (rising_edge(clk)) then
 		   case current_state is
 			when wait_state => 
 			   if (input = '1') then
@@ -49,11 +50,13 @@ architecture one_pulse_arch of one_pulse is
 				next_state <= wait_state;
 			   end if;
 		   end case;
+			end if;
 	   end process next_state_logic;
 
 	   -- Combinational
-	   output_logic : process (current_state)
+	   output_logic : process (current_state, clk)
 	     	begin
+			if (rising_edge(clk)) then
 		   case current_state is
 			when wait_state => 
 			   pulse <= '0';
@@ -62,6 +65,7 @@ architecture one_pulse_arch of one_pulse is
 			when low_state => 
 			   pulse <= '0';
 		   end case;
+			end if;
 	   end process output_logic;
 
 end architecture one_pulse_arch;
