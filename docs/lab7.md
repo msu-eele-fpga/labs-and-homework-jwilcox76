@@ -4,6 +4,8 @@
 
 accessed memory with dev/mem and system console
 
+wrote to and read memory locations using hex values to rep registers
+
 ## Deliverables ##
 
 No deliverables just the demonstration and the questions
