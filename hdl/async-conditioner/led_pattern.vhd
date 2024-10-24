@@ -76,26 +76,32 @@ architecture led_pattern_arch of led_pattern is
 	signal temp_clk_p1 : unsigned(N_BITS_CLK_CYCLES - 1 downto 0);
 	signal cnt_p1 : unsigned(39 downto 0) := (others => '0');
 	signal clk_p1 : std_logic := '0';
+	signal prev_value_p1 : unsigned(N_BITS_CLK_CYCLES - 1 downto 0) := (others => '0');
 
 	signal temp_clk_p2 : unsigned(N_BITS_CLK_CYCLES - 1 downto 0);
 	signal cnt_p2 : unsigned(39 downto 0) := (others => '0');
 	signal clk_p2 : std_logic := '0';
+	signal prev_value_p2 : unsigned(N_BITS_CLK_CYCLES - 1 downto 0) := (others => '0');
 
 	signal temp_clk_p3 : unsigned(N_BITS_CLK_CYCLES - 1 downto 0);
 	signal cnt_p3 : unsigned(39 downto 0) := (others => '0');
 	signal clk_p3 : std_logic := '0';
+	signal prev_value_p3 : unsigned(N_BITS_CLK_CYCLES - 1 downto 0) := (others => '0');
 
 	signal temp_clk_p4 : unsigned(N_BITS_CLK_CYCLES - 1 downto 0);
 	signal cnt_p4 : unsigned(39 downto 0) := (others => '0');
 	signal clk_p4 : std_logic := '0';
+	signal prev_value_p4 : unsigned(N_BITS_CLK_CYCLES - 1 downto 0) := (others => '0');
 
 	signal temp_clk_p5 : unsigned(N_BITS_CLK_CYCLES - 1 downto 0);
 	signal cnt_p5 : unsigned(39 downto 0) := (others => '0');
 	signal clk_p5 : std_logic := '0';
+	signal prev_value_p5 : unsigned(N_BITS_CLK_CYCLES - 1 downto 0) := (others => '0');
 
 	signal temp_clk_b7 : unsigned(N_BITS_CLK_CYCLES - 1 downto 0);
 	signal cnt_b7 : unsigned(39 downto 0) := (others => '0');
 	signal clk_b7 : std_logic := '0';
+	signal prev_value_p7 : unsigned(N_BITS_CLK_CYCLES - 1 downto 0) := (others => '0');
 
 	-- 1 second delay signals ------------------------------------------------------
 	constant COUNTER_LIMIT : integer := 1000000000 ns / system_clock_period;
@@ -223,17 +229,21 @@ architecture led_pattern_arch of led_pattern is
 	      --end if;
 	end process pattern1;
 
-	clock_gen_p1 : process (clk, rst)
+	clock_gen_p1 : process (clk, rst, period_base_clk)
 		begin
 		   if rst = '1' then
-			cnt_p1 <= (others => '0');
+				cnt_p1 <= (others => '0');
 		   elsif rising_edge(clk) then
-			cnt_p1 <= cnt_p1 + 1;
-			if (cnt_p1 = temp_clk_p1) then
-			   clk_p1 <= not clk_p1;
-			   cnt_p1 <= (others => '0');
-			end if;
+				cnt_p1 <= cnt_p1 + 1;
+				if (cnt_p1 = temp_clk_p1) then
+					clk_p1 <= not clk_p1;
+					cnt_p1 <= (others => '0');
+				end if;
 		   end if;
+			if(prev_value_p1 /= temp_clk_p1) then
+				cnt_p1 <= (others => '0');
+				prev_value_p1 <= temp_clk_p1;
+			end if;
 	end process clock_gen_p1;
 
 ---- Pattern one End ------------------------------------------------------------------------------------------------
@@ -267,6 +277,10 @@ architecture led_pattern_arch of led_pattern is
 			   cnt_p2 <= (others => '0');
 			end if;
 		   end if;
+			if(prev_value_p2 /= temp_clk_p2) then
+				cnt_p2 <= (others => '0');
+				prev_value_p2 <= temp_clk_p2;
+			end if;
 	end process clock_gen_p2;
 
 ---- Pattern two End ------------------------------------------------------------------------------------------------
@@ -301,6 +315,10 @@ architecture led_pattern_arch of led_pattern is
 			   cnt_p3 <= (others => '0');
 			end if;
 		   end if;
+			if(prev_value_p3 /= temp_clk_p3) then
+				cnt_p3 <= (others => '0');
+				prev_value_p3 <= temp_clk_p3;
+			end if;
 	end process clock_gen_p3;
 
 ---- Pattern three End ------------------------------------------------------------------------------------------------
@@ -336,6 +354,10 @@ architecture led_pattern_arch of led_pattern is
 			   cnt_p4 <= (others => '0');
 			end if;
 		   end if;
+			if(prev_value_p4 /= temp_clk_p4) then
+				cnt_p4 <= (others => '0');
+				prev_value_p4 <= temp_clk_p4;
+			end if;
 	end process clock_gen_p4;
 
 ---- Pattern four End ------------------------------------------------------------------------------------------------
@@ -375,6 +397,10 @@ architecture led_pattern_arch of led_pattern is
 			   cnt_p5 <= (others => '0');
 			end if;
 		   end if;
+			if(prev_value_p5 /= temp_clk_p5) then
+				cnt_p5 <= (others => '0');
+				prev_value_p5 <= temp_clk_p5;
+			end if;
 	end process clock_gen_p5;
 
 ---- Pattern five End ------------------------------------------------------------------------------------------------
@@ -426,6 +452,10 @@ architecture led_pattern_arch of led_pattern is
 			   cnt_b7 <= (others => '0');
 			end if;
 		   end if;
+			if(prev_value_p7 /= temp_clk_b7) then
+				cnt_b7 <= (others => '0');
+				prev_value_p7 <= temp_clk_b7;
+			end if;
 	end process clock_gen_b7;
 
 
