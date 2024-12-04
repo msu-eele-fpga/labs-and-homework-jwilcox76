@@ -5,12 +5,27 @@
 #include <string.h>
 #include <unistd.h>
 
+#include <signal.h>
+#include <stdbool.h>
+#include <sys/mman.h>  // for map
+#include <fcntl.h> // for file open flags
+
 // TODO: update these offsets if your address are different
 #define HPS_LED_CONTROL_OFFSET 0x0
 #define BASE_PERIOD_OFFSET 0x4
 #define LED_REG_OFFSET 0x08
 
+bool terminateFlag = false;
+
+void terminate_handler(){
+    //code for turing off hps_control mode
+    printf("\nTerminating program\n");
+    terminateFlag = true;
+}
+
 int main () {
+
+	signal(SIGINT, terminate_handler);
 	FILE *file;
 	size_t ret;	
 	uint32_t val;
@@ -51,35 +66,39 @@ int main () {
 	// We need to "flush" so the OS finishes writing to the file before our code continues.
 	fflush(file);
 
+	while(terminateFlag == false){
+
 	// Write some values to the LEDs
 	printf("writing patterns to LEDs....\n");
-	val = 0x55;
+	val = 0x41;
     ret = fseek(file, LED_REG_OFFSET, SEEK_SET);
 	ret = fwrite(&val, 4, 1, file);
 	fflush(file);
 
 	sleep(1);
 
-	val = 0xaa;
+	val = 0x22;
     ret = fseek(file, LED_REG_OFFSET, SEEK_SET);
 	ret = fwrite(&val, 4, 1, file);
 	fflush(file);
 
 	sleep(1);
 
-	val = 0xff;
+	val = 0x14;
     ret = fseek(file, LED_REG_OFFSET, SEEK_SET);
 	ret = fwrite(&val, 4, 1, file);
 	fflush(file);
 
 	usleep(0.5e6);
 
-	val = 0x00;
+	val = 0x08;
     ret = fseek(file, LED_REG_OFFSET, SEEK_SET);
 	ret = fwrite(&val, 4, 1, file);
 	fflush(file);
 
 	sleep(1);
+
+	}
 
 	// Turn on hardware-control mode
 	printf("back to hardware-control mode....\n");
